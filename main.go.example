@@ -1,0 +1,29 @@
+package main
+
+import (
+	"context"
+	"flag"
+	"https://github.com/porschemacan/golden"
+)
+
+func main() {
+	flag.Parse()
+	service := golden.New(
+		golden.Name("first-server"),
+		golden.Address(":8001"),
+	)
+	registerApi(service)
+	_ = service.Run()
+}
+
+func registerApi(service *golden.Golden) {
+	service.Get("/trigger/user/post", func(c *golden.HttpContext) {
+		request := c.NewRequest(context.Background())
+		_, _ = request.SetBody(`{
+			"password": "BC594900-518B-4F7E-AC75-BD37F019E08F",
+			"username": "whoami",
+		}`).Post("http://localhost:8002/user/123456789")
+
+		c.String(200, "succeed")
+	})
+}
