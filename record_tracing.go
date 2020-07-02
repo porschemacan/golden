@@ -1,10 +1,10 @@
 package golden
 
 import (
-	"github.com/porschemacan/golden/libs"
 	"github.com/go-resty/resty/v2"
 	"github.com/opentracing/basictracer-go"
 	"github.com/opentracing/opentracing-go"
+	"github.com/porschemacan/golden/libs"
 	"strings"
 )
 
@@ -122,8 +122,8 @@ type SpanFinishRecorder struct {
 func (*SpanFinishRecorder) RecordSpan(span basictracer.RawSpan) {
 	libs.GetDLog("_undef").
 		WithField("traceid", span.Context.TraceID).
-		WithField("spanid", span.ParentSpanID).
-		WithField("cspanid", span.Context.SpanID).
+		WithField("parentSpanid", span.ParentSpanID).
+		WithField("spanid", span.Context.SpanID).
 		WithField("starttime", span.Start.Unix()).
 		WithField("duration", int64(span.Duration.Nanoseconds()/1000000)).
 		Info(span.Context.Baggage)

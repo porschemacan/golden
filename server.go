@@ -2,9 +2,9 @@ package golden
 
 import (
 	"context"
-	"github.com/porschemacan/golden/libs"
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
+	"github.com/porschemacan/golden/libs"
 	"net/http"
 	"os"
 	"os/signal"

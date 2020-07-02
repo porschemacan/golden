@@ -2,9 +2,9 @@ package libs
 
 import (
 	"fmt"
+	"github.com/lestrrat-go/file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	log "github.com/sirupsen/logrus"
-	"github.com/lestrrat-go/file-rotatelogs"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -13,9 +13,9 @@ import (
 )
 
 var (
-	program   = filepath.Base(os.Args[0])
-	didi_log  = log.New()
-	info_log  = log.New()
+	program  = filepath.Base(os.Args[0])
+	didi_log = log.New()
+	info_log = log.New()
 )
 var once sync.Once
 
@@ -23,7 +23,7 @@ func InitLog(config *LogConfig) {
 	once.Do(func() {
 		didi_log.SetReportCaller(true)
 		info_log.SetReportCaller(true)
-		didi_log.AddHook(newLfsHook("didi_log."+program+".log", config))
+		didi_log.AddHook(newLfsHook("golden_log."+program+".log", config))
 		info_log.AddHook(newLfsHook(program+".log", config))
 		didi_log.Out = ioutil.Discard
 		info_log.Out = ioutil.Discard
@@ -76,7 +76,7 @@ func newLfsHook(filename string, config *LogConfig) log.Hook {
 
 // didi log
 func GetDLog(tag string) *log.Entry {
-	return didi_log.WithField("action",tag)
+	return didi_log.WithField("action", tag)
 }
 
 func DLogf(format string, args ...interface{}) {
@@ -84,7 +84,7 @@ func DLogf(format string, args ...interface{}) {
 }
 
 func DTagf(tag string, format string, args ...interface{}) {
-	didi_log.WithField("action",tag).Infof(format, args...)
+	didi_log.WithField("action", tag).Infof(format, args...)
 }
 
 // info log
