@@ -30,6 +30,10 @@ func (r *HttpRequest) SetImpl(impl *resty.Request) {
 	r.impl = impl
 }
 
+func (r *HttpRequest) GetHeader(header string) string {
+	return r.impl.Header.Get(header)
+}
+
 //			SetHeader("Content-Type", "application/json").
 //			SetHeader("Accept", "application/json")
 func (r *HttpRequest) SetHeader(header, value string) *HttpRequest {
