@@ -63,6 +63,10 @@ func (c *HttpContext) String(code int, format string, values ...interface{}) {
 	c.context.String(code, format, values...)
 }
 
+func (c *HttpContext) HTML(code int, name string, obj interface{}) {
+	c.context.HTML(code, name, obj)
+}
+
 func (c *HttpContext) ClientIP() string {
 	return c.context.ClientIP()
 }

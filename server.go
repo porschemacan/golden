@@ -69,6 +69,10 @@ func New(opts ...Option) *Golden {
 		libs.InitLog(serverOptions.LogConfig)
 	}
 
+	if serverOptions.HtmlConfig != nil {
+		router.LoadHTMLGlob(serverOptions.HtmlConfig.HtmlTemplatePattern)
+	}
+
 	goldenInst.AllRequest(ServerOpenTracing)
 	goldenInst.client.OnBeforeRequest(ClientOpenTracing)
 	goldenInst.client.OnAfterResponse(SubCallResponseTracing)

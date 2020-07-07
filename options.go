@@ -12,6 +12,7 @@ type ServerOptions struct {
 	Address      string
 	CORSConfig   *CORSConfig
 	LogConfig    *libs.LogConfig
+	HtmlConfig   *HtmlConfig
 }
 
 type Option func(*ServerOptions)
@@ -57,5 +58,11 @@ func Cors(cors *CORSConfig) Option {
 func LogConfig(cfg *libs.LogConfig) Option {
 	return func(o *ServerOptions) {
 		o.LogConfig = cfg
+	}
+}
+
+func Html(cfg *HtmlConfig) Option {
+	return func(o *ServerOptions) {
+		o.HtmlConfig = cfg
 	}
 }
