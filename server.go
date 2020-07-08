@@ -70,7 +70,13 @@ func New(opts ...Option) *Golden {
 	}
 
 	if serverOptions.HtmlConfig != nil {
-		router.LoadHTMLGlob(serverOptions.HtmlConfig.HtmlTemplatePattern)
+		if "" != serverOptions.HtmlConfig.HtmlTemplatePattern {
+			router.LoadHTMLGlob(serverOptions.HtmlConfig.HtmlTemplatePattern)
+		}
+
+		if "" != serverOptions.HtmlConfig.HtmlStaticFilesUrlPath {
+			router.Static(serverOptions.HtmlConfig.HtmlStaticFilesUrlPath, serverOptions.HtmlConfig.HtmlStaticFilesLocalPath)
+		}
 	}
 
 	goldenInst.AllRequest(ServerOpenTracing)

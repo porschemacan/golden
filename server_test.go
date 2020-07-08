@@ -721,3 +721,22 @@ func TestUrlParam(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, w.Code)
 	assert.Equal(t, "ACDBEGHF", signature)
 }
+
+func TestCreateHtmlServer(t *testing.T) {
+	g := New(Address(":9090"), Timeout(1, 1),
+		Html(&HtmlConfig{
+			HtmlTemplatePattern:      "",
+			HtmlStaticFilesLocalPath: ".",
+			HtmlStaticFilesUrlPath:   "/static",
+		}))
+
+	w := performRequest(g, "GET", "/static/README.md")
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Contains(t, w.Body.String(), "a micro service framework")
+
+	w = performRequest(g, "GET", "/static/notexist")
+
+	assert.Equal(t, http.StatusNotFound, w.Code)
+
+}

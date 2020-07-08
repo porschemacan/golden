@@ -1,5 +1,7 @@
 package golden
 
 type HtmlConfig struct {
-	HtmlTemplatePattern string
+	HtmlTemplatePattern      string
+	HtmlStaticFilesLocalPath string
+	HtmlStaticFilesUrlPath   string
 }
