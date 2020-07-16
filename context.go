@@ -67,6 +67,11 @@ func (c *HttpContext) HTML(code int, name string, obj interface{}) {
 	c.context.HTML(code, name, obj)
 }
 
+// Data writes some data into the body stream and updates the HTTP code.
+func (c *HttpContext) Data(code int, contentType string, data []byte) {
+	c.context.Data(code, contentType, data)
+}
+
 func (c *HttpContext) ClientIP() string {
 	return c.context.ClientIP()
 }
